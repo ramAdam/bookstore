@@ -1,0 +1,3 @@
+Instructions for continuous build:
+1: At first terminal, start gradle build --continuous 
+2. At second terminal, start gradle bootRun
