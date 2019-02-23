@@ -1,5 +1,6 @@
 package com.mog.momongo.entity;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Author {
     private String name;
 
     @ManyToMany(mappedBy="authors", fetch=FetchType.EAGER)
-    private Set<Book> books;
+    private Collection<Book> books;
 
     public Author() {
         
@@ -38,14 +39,14 @@ public class Author {
     /**
      * @return the book
      */
-    public Set<Book> getBooks() {
+    public Collection<Book> getBooks() {
         return this.books;
     }
 
     /**
      * @param book the book to set
      */
-    public void setBook(Set<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
@@ -62,5 +63,7 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
+
+    
     
 }

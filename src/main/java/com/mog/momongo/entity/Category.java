@@ -1,9 +1,12 @@
 package com.mog.momongo.entity;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Category
@@ -17,6 +20,10 @@ public class Category {
 
     private String category;
 
+    @OneToMany(targetEntity=Book.class, mappedBy="category")
+    private Collection<Book> books;
+
+    
     public Category() {
         this.category = "";
     }

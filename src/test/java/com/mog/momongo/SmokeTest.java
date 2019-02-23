@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MomongoApplicationTests {
+public class SmokeTest {
 
 	@Autowired
 	BookRepository repository;
@@ -29,29 +29,12 @@ public class MomongoApplicationTests {
 	CategoryRepository catRepository;
 	String title;
 
-	// @Before
-	// public void setUp(){
-	// 	Category cat = new Category("Science");
-	// 	catRepository.save(cat);
-
-	// 	Author author = new Author("Thomas campbell");
-
-	// 	Book book = new Book("Big Toe", cat);
-	// 	book.addAuthor(author);
-
-	// 	repository.save(book);
-	// }
-
+	
 	@Test
 	public void contextLoads() {
 		assertThat(repository).isNotNull();
 	}
 
-	// @Test
-	// public void findBookByTitle(){
-
-	// 	assertThat(repository.findAll()).isNotEmpty();
-	// }
 
 	
 }

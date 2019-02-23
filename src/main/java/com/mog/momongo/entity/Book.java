@@ -1,15 +1,18 @@
 package com.mog.momongo.entity;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -27,19 +30,27 @@ public class Book {
     private String title;
 
     @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="CAT_ID")          // join col is used to override foreign key name on other side
     private Category category;
 
+    
     @ManyToMany(fetch=FetchType.EAGER)
-    private Set<Author> authors;
+    @JoinTable( name = "BK_AUTH",
+                joinColumns = @JoinColumn(name="BK_ID", referencedColumnName="id"),
+                inverseJoinColumns=@JoinColumn(name="AUTH_ID", referencedColumnName="id"))
+    private Collection<Author> authors;
+
+    
 
     public Book(){
         this.category = new Category();
     }
 
-    public Book(String title, Category category) {
+    public Book(String title, Category category, Author...authors) {
      
         this.setTitle(title);
-        this.authors = new HashSet<Author>();
+        this.authors = Stream.of(authors).collect(Collectors.toSet());
+        this.authors.forEach(a -> a.getBooks().add(this));
         this.category = category; 
         
     }
@@ -48,15 +59,10 @@ public class Book {
         this.authors.add(author);
     }
 
-    // public Set<Author> getAuthors() {
-    //     return this.authors;
-    // }
-
-    public String getAuthors(){
+   
+    public Collection<Author> getAuthors(){
         
-        return authors.stream()
-        .map(a -> a.getName())
-        .collect(Collectors.joining(" "));
+        return this.authors;
         
     }
 
@@ -86,6 +92,10 @@ public class Book {
      */
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setAuthors(Collection<Author> authors){
+        this.authors = authors;
     }
     
 }

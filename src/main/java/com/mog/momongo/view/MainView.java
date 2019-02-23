@@ -76,6 +76,7 @@ public class MainView extends VerticalLayout{
         // this.grid.setWidth("100%");
         grid.addColumn(Book::getTitle).setHeader("tile");
         grid.addColumn(Book::getAuthors).setHeader("author");
+        grid.addColumn("category.category");
         // grid.addColumn(Book::getCategory).setHeader("Category");
 
 

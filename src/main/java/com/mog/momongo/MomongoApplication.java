@@ -2,9 +2,7 @@ package com.mog.momongo;
 
 
 
-import com.mog.momongo.entity.Author;
 import com.mog.momongo.entity.Book;
-import com.mog.momongo.entity.Category;
 import com.mog.momongo.repository.AuthorRepository;
 import com.mog.momongo.repository.BookRepository;
 import com.mog.momongo.repository.CategoryRepository;
@@ -16,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.roo.shell.Shell;
 
 @SpringBootApplication
 public class MomongoApplication implements CommandLineRunner{
