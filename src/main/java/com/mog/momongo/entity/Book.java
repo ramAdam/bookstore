@@ -2,7 +2,6 @@ package com.mog.momongo.entity;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,6 +45,12 @@ public class Book {
         this.category = new Category();
     }
 
+    public Book(String title, Category category){
+        this.setTitle(title);
+        this.category = category;
+        this.authors = new HashSet<Author>();
+    }
+
     public Book(String title, Category category, Author...authors) {
      
         this.setTitle(title);
@@ -57,6 +62,7 @@ public class Book {
 
     public void addAuthor(Author author) {
         this.authors.add(author);
+        author.getBooks().add(this);
     }
 
    
@@ -95,7 +101,9 @@ public class Book {
     }
 
     public void setAuthors(Collection<Author> authors){
-        this.authors = authors;
+        this.authors.addAll(authors);
+        this.authors.forEach(a -> a.getBooks().add(this));
+
     }
     
 }

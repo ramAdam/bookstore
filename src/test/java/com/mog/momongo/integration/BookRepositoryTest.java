@@ -1,13 +1,11 @@
 package com.mog.momongo.integration;
 
+import com.mog.momongo.data.BookData;
 import com.mog.momongo.entity.Author;
 import com.mog.momongo.entity.Book;
-import com.mog.momongo.entity.Category;
-import com.mog.momongo.repository.AuthorRepository;
 import com.mog.momongo.repository.BookRepository;
-import com.mog.momongo.repository.CategoryRepository;
 
-import org.assertj.core.groups.Tuple;
+import static org.assertj.core.api.Assertions.tuple;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +16,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -32,13 +29,15 @@ public class BookRepositoryTest {
 
     @Autowired
     BookRepository bookrepository;
-    @Autowired
-    CategoryRepository catRespository;
-    @Autowired 
-    AuthorRepository authorRepository;
+    // @Autowired
+    // CategoryRepository catRespository;
+    // @Autowired 
+    // AuthorRepository authorRepository;
 
     List<Book> books;
   
+    @Autowired
+    BookData data;
 
     
 
@@ -46,13 +45,8 @@ public class BookRepositoryTest {
    	@Before
 	public void setUp(){
       
-        
-        
-        addBook("Science", Arrays.asList("Thomas Campbell"), "Big Toe");
-
-        //book 2 
-        addBook("Philosopy", Arrays.asList("Krishna"), "Freedom from Known");
-             
+                        
+        data.populateBooks();
         books = bookrepository.findAll();
 
     }
@@ -70,7 +64,7 @@ public class BookRepositoryTest {
     public void shouldFindBooksAdded(){
                 
         assertThat(books).extracting("title", "category.category")
-                                .contains(new Tuple("Big Toe","Science"));
+                                .contains(tuple("Big Toe","Science"));
         // assertThat(filter(books).with("category.category", "art").get()).containsOnly(values)
 
       
@@ -87,6 +81,7 @@ public class BookRepositoryTest {
 
         assertThat(bigToe).isNotNull();
         assertThat(bigToe.getTitle()).as("%s wrote", bigToe.getAuthors()).isEqualTo("Big Toe");
+        assertThat(bigToe.getAuthors()).size().isEqualTo(1);
 
 
         Book freedomFromKnown = bookrepository.findByTitle("Freedom from Known");
@@ -112,7 +107,7 @@ public class BookRepositoryTest {
 
 
     @Test
-    public void findBookAuthors(){
+    public void findAuthor(){
 
         
         Book bigToe = books.stream()
@@ -129,59 +124,60 @@ public class BookRepositoryTest {
 
         assertThat(author).isNotNull();
         assertThat(bigToe.getAuthors()).size().isEqualTo(1);
-        assertThat(bigToe.getAuthors()).contains(author);
+        assertThat(bigToe.getAuthors()).containsOnly(author);
 
 
     }
-    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-    /** private methods to add books */
-    private void addBook(String category, List<String> authors, String title){
 
-        
-        
-        Category cat = new Category(category);
-        catRespository.save(cat);
-        Author author = new Author(authors.get(0));
-        authorRepository.save(author);
-        Book book = new Book(title, cat, author);
+    @Test
+    public void findAllAuthorsOfABook(){
 
-        
-        
-        
+        assertThat(books).size().isGreaterThan(1);
 
-        // for(Author auth: createAuthors(authors)){
-        
-        //     auth.setBook(book);
-        // }
-
-        bookrepository.save(book);
+        Book artOfDoom = books.stream().filter(b -> b.getAuthors().size() > 1)
+        .findAny()
+        .orElse(null);
        
+        
+        
+        Author catherine = artOfDoom.getAuthors().stream()
+        .filter(a -> a.getName().equals("Catherine Jones"))
+        .findAny()
+        .orElse(null);
+
+        Author jhon = artOfDoom.getAuthors().stream()
+        .filter(a -> a.getName().equals("Jhon M. Blanes"))
+        .findAny()
+        .orElse(null);
+               
+        assertThat(catherine).isNotNull();
+        assertThat(jhon).isNotNull();
+
+        //book found
+        assertThat(artOfDoom).isNotNull();
+        assertThat(artOfDoom.getAuthors()).size().isEqualTo(2);
+
+        
+        assertThat(books).flatExtracting("authors")
+                                            .contains(catherine, jhon);
+   
 
     }
 
-    // private Collection<Author> createAuthors(List<String> authorNames){
-        
-    //     for(String name: authorNames){
-    //         authorRepository.save(new Author(name));
-    //     }
-
-    //     return authorRepository.findAll();
-
-    // }
 }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

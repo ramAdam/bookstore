@@ -47,7 +47,9 @@ public class Author {
      * @param book the book to set
      */
     public void setBooks(Set<Book> books) {
-        this.books = books;
+        this.books.addAll(books);
+        books.forEach(b -> b.getAuthors().add(this));
+        
     }
 
     /**

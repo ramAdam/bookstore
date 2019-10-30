@@ -13,10 +13,10 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 
-import org.apache.commons.codec.binary.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import elemental.js.util.StringUtil;
+
 
 /**
  * MainView

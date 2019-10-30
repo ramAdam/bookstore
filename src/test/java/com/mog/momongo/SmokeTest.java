@@ -1,14 +1,8 @@
 package com.mog.momongo;
 
-import static org.junit.Assert.assertThat;
-
-import com.mog.momongo.entity.Author;
-import com.mog.momongo.entity.Book;
-import com.mog.momongo.entity.Category;
 import com.mog.momongo.repository.BookRepository;
 import com.mog.momongo.repository.CategoryRepository;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
