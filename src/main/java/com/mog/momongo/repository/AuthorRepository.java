@@ -7,6 +7,7 @@ import com.mog.momongo.entity.Book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
 /**
  * AuthorRepository
  */
