@@ -7,14 +7,19 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Customer
  */
 @Entity
+@Table(name = "customer")
 public class Customer extends AbstractEntity {
 
     @NotNull
@@ -24,9 +29,14 @@ public class Customer extends AbstractEntity {
     @Column(unique = true)
     private String emailId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "cust_id")
+    
+    // @JoinColumn(name = "CUST_ID")
+    @OneToMany(mappedBy= "customer", cascade=CascadeType.ALL, orphanRemoval = true)
     private Set<Address> addresses = new HashSet<Address>();
+
+    // @OneToMany(mappedBy= "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private Set<Order> orders = new HashSet<Order>();
+
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -56,20 +66,31 @@ public class Customer extends AbstractEntity {
         this.firstName = firstName;
     }
 
-    public void add(@NotNull Address address){
-        this.addresses.add(address);
+    public void addAddress(@NotNull Address address){
+        address.setCustomer(this);
+        getAddresses().add(address);
 
     }
+    // public void addOrder(@NotNull Order order){
+    //     this.orders.add(order);
+    // }
+
     public void setEmailId(String emailID){
         this.emailId = emailID;
     }
 
+    
     public Set<Address> getAddresses(){
-        return Collections.unmodifiableSet(this.addresses);
+        return this.addresses;
     }
 
 
-
+    /**
+     * @return the orders
+     */
+    // public Set<Order> getOrders() {
+    //     return orders;
+    // }
 
 
 

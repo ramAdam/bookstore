@@ -1,6 +1,9 @@
 package com.mog.momongo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,6 +16,11 @@ public class Address extends AbstractEntity {
     private int houseNo;
     @NotNull
     private String streetName, city, postalCode;
+
+    @ManyToOne
+    @NotNull
+    // @JoinColumn(name="ADD_ID")
+    private Customer customer;
     
 
     public Address(int houseNo, String streetName, String city, String postalCode) {
@@ -22,6 +30,11 @@ public class Address extends AbstractEntity {
         this.city = city;
         this.postalCode = postalCode;
     }
+
+    protected Address(){
+
+    }
+   
 
     public int gethouseNo() {
         return houseNo;
@@ -53,6 +66,16 @@ public class Address extends AbstractEntity {
 
     public void setHouseNo(int streetNo) {
         this.houseNo = streetNo;
+    }
+
+	public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    // @ManyToOne
+    // @JoinColumn(name="CUSTOMER_ID")
+    public Customer getCustomer(){
+        return this.customer;
     }
     
 } 
