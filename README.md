@@ -1,5 +1,5 @@
 # Bookstore
-[![Build Status](https://travis-ci.com/ramAdam/bookstore.svg?branch=octo-branch)](https://travis-ci.com/ramAdam/bookstore)
+[![Build Status](https://travis-ci.com/ramAdam/bookstore.svg?branch=master)](https://travis-ci.com/ramAdam/bookstore)
 Backend for a book store utilising spring boot 
 
 # Testing
