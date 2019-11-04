@@ -91,7 +91,7 @@ public class CustomerRepositoryTest {
 
     @Test 
     public void findAddressByCustomer(){
-        List<Address> addresses = addressRepository.FindAddressesByCustomerName();
+        List<Address> addresses = addressRepository.FindAllAddresses();
         assertThat(addresses).size().isEqualTo(1);
         assertThat(addresses.get(0).getCity()).isEqualTo("cambridge");
     }
