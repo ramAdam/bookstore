@@ -16,13 +16,14 @@ import com.mog.momongo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * BookData
  */
-@Configuration
-@ComponentScan(basePackages = "com.mog.momongo.data")
-
+// @Configuration
+// @ComponentScan(basePackages = "com.mog.momongo.data")
+@Component("data")
 public class BookData implements BooksDataInterface {
 
     public String art = "Art";
@@ -34,6 +35,10 @@ public class BookData implements BooksDataInterface {
     CategoryRepository catRespository;
     @Autowired 
     AuthorRepository authorRepository;
+
+    public BookData() {
+        
+    }
 
     @Override
     public void addBook(String category, List<String> authors, String title) {

@@ -1,43 +1,32 @@
 package com.mog.momongo.integration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
+
+import java.util.List;
+
+import com.mog.momongo.BaseTest;
 import com.mog.momongo.data.BookData;
 import com.mog.momongo.entity.Author;
 import com.mog.momongo.entity.Book;
 import com.mog.momongo.repository.BookRepository;
 
-import static org.assertj.core.api.Assertions.tuple;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import java.util.List;
 
 
 /**
  * BookRepositoryTest
  */
-@RunWith(SpringRunner.class)
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@SpringBootTest
-public class BookRepositoryTest {
+public class BookRepositoryTest extends BaseTest{
 
     @Autowired
     BookRepository bookrepository;
-    // @Autowired
-    // CategoryRepository catRespository;
-    // @Autowired 
-    // AuthorRepository authorRepository;
-
     List<Book> books;
   
     @Autowired
-    BookData data;
+    BookData bookData;
 
     
 
@@ -45,7 +34,6 @@ public class BookRepositoryTest {
    	@Before
 	public void setUp(){
                              
-        data.populateBooks();
         books = bookrepository.findAll();
 
     }
@@ -53,7 +41,7 @@ public class BookRepositoryTest {
     
     
     @Test
-    public void saveBook(){
+    public void testSavedBooks(){
         
         assertThat(books).size().isGreaterThan(1);
     }

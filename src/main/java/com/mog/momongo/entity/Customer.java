@@ -1,26 +1,28 @@
 package com.mog.momongo.entity;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.annotations.Fetch;
 
 /**
  * Customer
  */
 @Entity
 @Table(name = "customer")
-public class Customer extends AbstractEntity {
+public class Customer extends AbstractEntity{
+
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    // private Long id;
+
 
     @NotNull
     private String firstName, lastName;
@@ -29,8 +31,7 @@ public class Customer extends AbstractEntity {
     @Column(unique = true)
     private String emailId;
 
-    
-    // @JoinColumn(name = "CUST_ID")
+    // @JoinColumn(name = "ADD_ID")
     @OneToMany(mappedBy= "customer", cascade=CascadeType.ALL, orphanRemoval = true)
     private Set<Address> addresses = new HashSet<Address>();
 
@@ -49,7 +50,7 @@ public class Customer extends AbstractEntity {
     public Customer(){
 
     }
-
+    
     public String getLastName() {
         return lastName;
     }
@@ -62,6 +63,7 @@ public class Customer extends AbstractEntity {
         return firstName;
     }
 
+    
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

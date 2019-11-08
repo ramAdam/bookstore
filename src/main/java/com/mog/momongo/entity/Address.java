@@ -1,25 +1,36 @@
 package com.mog.momongo.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Address
  */
 @Entity
-public class Address extends AbstractEntity {
-
+@Table(name="address")
+public class Address extends AbstractEntity{
     @NotNull
     private int houseNo;
     @NotNull
-    private String streetName, city, postalCode;
-
-    @ManyToOne
+    @Column(name = "street")
+    private String streetName;
     @NotNull
-    // @JoinColumn(name="ADD_ID")
+    private String city, postalCode;
+
+    @ManyToOne()
+    @NotNull
+    @JoinColumn(name="cust_id")
     private Customer customer;
     
 
@@ -35,6 +46,7 @@ public class Address extends AbstractEntity {
 
     }
    
+    
 
     public int gethouseNo() {
         return houseNo;
@@ -55,7 +67,7 @@ public class Address extends AbstractEntity {
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
-
+    
     public String getStreetName() {
         return streetName;
     }
@@ -72,8 +84,6 @@ public class Address extends AbstractEntity {
         this.customer = customer;
     }
 
-    // @ManyToOne
-    // @JoinColumn(name="CUSTOMER_ID")
     public Customer getCustomer(){
         return this.customer;
     }

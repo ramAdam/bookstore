@@ -1,12 +1,11 @@
 package com.mog.momongo.repository;
 
-import java.util.Set;
+import java.util.List;
 
-import com.mog.momongo.entity.Address;
 import com.mog.momongo.entity.Customer;
-import com.mog.momongo.entity.Order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * CustomerRepository
@@ -14,9 +13,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Customer findByLastName(String name);
-    // Set<Address> findAddresses(Customer customer);
+        
+    @Query(value="Select * from Customer c LEFT JOIN address a ON c.id = a.id AND a.street = ?1", 
+    nativeQuery = true )
+    List<Customer> findCustomerByAddressStreet(String street);
+
+    Customer findByFirstName(String firstName);
+
+    
+        
     // Set<Order> findAllOrders(String name);
-	// Set<Address> findAllAddresses(String string);
+    // Set<Address> findAllAddresses(String string);
+    
+    
 
     
     
