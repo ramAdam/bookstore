@@ -1,0 +1,34 @@
+[
+    {
+        "_class": "com.mog.momongo.entity.Customer",
+        "firstName": "ram",
+        "lastName": "lee",
+        "emailId" :"jamjell@belly.com",
+        "addresses":[
+            {
+                "_class": "com.mog.momongo.entity.Address",
+                "houseNo" : 212,
+                "streetName" : "Lena Cres",
+                "city" : "cambridge",
+                "postalCode" : "N3P 8P7"
+
+            },
+            {
+                "_class": "com.mog.momongo.entity.Address",
+                "houseNo" : 300,
+                "streetName" : "Dymott Ave",
+                "city" : "Milton",
+                "postalCode" : "N1R 8P5"
+            }
+        ]
+        
+        
+                
+    },
+    {
+        "_class": "com.mog.momongo.entity.Customer",
+        "firstName": "nan",
+        "lastName": "bacon",
+        "emailId": "bake@bcon.net"
+    }
+]

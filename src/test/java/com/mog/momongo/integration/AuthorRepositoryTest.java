@@ -40,7 +40,7 @@ public class AuthorRepositoryTest {
     BookRepository bookrepository;
 
     @Autowired
-    BookData data;
+    BookData bookData;
 
     List<Book> books;
     List<Author> allAuthors;
@@ -49,7 +49,7 @@ public class AuthorRepositoryTest {
     @Before
     public void setUp(){
         
-        data.populateBooks();
+        
 
         books = bookrepository.findAll(); 
         allAuthors = authorRepository.findAll();

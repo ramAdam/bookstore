@@ -7,20 +7,23 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Customer
  */
 @Entity
 @Table(name = "customer")
-public class Customer extends AbstractEntity {
+public class Customer extends AbstractEntity{
+
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    // private Long id;
+
 
     @NotNull
     private String firstName, lastName;
@@ -29,8 +32,7 @@ public class Customer extends AbstractEntity {
     @Column(unique = true)
     private String emailId;
 
-    
-    // @JoinColumn(name = "CUST_ID")
+    // @JoinColumn(name = "ADD_ID")
     @OneToMany(mappedBy= "customer", cascade=CascadeType.ALL, orphanRemoval = true)
     private Set<Address> addresses = new HashSet<Address>();
 
@@ -49,7 +51,7 @@ public class Customer extends AbstractEntity {
     public Customer(){
 
     }
-
+    
     public String getLastName() {
         return lastName;
     }
@@ -62,6 +64,7 @@ public class Customer extends AbstractEntity {
         return firstName;
     }
 
+    
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -71,10 +74,7 @@ public class Customer extends AbstractEntity {
         getAddresses().add(address);
 
     }
-    // public void addOrder(@NotNull Order order){
-    //     this.orders.add(order);
-    // }
-
+    
     public void setEmailId(String emailID){
         this.emailId = emailID;
     }
@@ -82,15 +82,13 @@ public class Customer extends AbstractEntity {
     
     public Set<Address> getAddresses(){
         return this.addresses;
+        
     }
 
+    
 
-    /**
-     * @return the orders
-     */
-    // public Set<Order> getOrders() {
-    //     return orders;
-    // }
+
+    
 
 
 
