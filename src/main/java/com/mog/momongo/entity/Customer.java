@@ -1,5 +1,6 @@
 package com.mog.momongo.entity;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Fetch;
+
 
 /**
  * Customer
@@ -73,10 +74,7 @@ public class Customer extends AbstractEntity{
         getAddresses().add(address);
 
     }
-    // public void addOrder(@NotNull Order order){
-    //     this.orders.add(order);
-    // }
-
+    
     public void setEmailId(String emailID){
         this.emailId = emailID;
     }
@@ -84,15 +82,13 @@ public class Customer extends AbstractEntity{
     
     public Set<Address> getAddresses(){
         return this.addresses;
+        
     }
 
+    
 
-    /**
-     * @return the orders
-     */
-    // public Set<Order> getOrders() {
-    //     return orders;
-    // }
+
+    
 
 
 
